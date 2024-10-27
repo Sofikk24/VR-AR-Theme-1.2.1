@@ -20,12 +20,22 @@
           smoothTolerance="0.01"
           smoothThreshold="5"
           emitevents="true">
-          <a-sound
-              src="#sound"
-              autoplay="true"
-              position="0 0 0">
-          </a-sound>
+          <a-entity id="sound-entity" sound="src: #sound; autoplay: false;"></a-entity>
         </a-nft>
     </a-scene>
+    <script>
+      const marker = document.querySelector('a-nft');
+      const soundEntity = document.getElementById('sound-entity');
+
+      marker.addEventListener('markerFound', () => {
+        console.log('Маркер найден');
+        soundEntity.components.sound.playSound();
+      });
+
+      marker.addEventListener('markerLost', () => {
+        console.log('Маркер потерян');
+        soundEntity.components.sound.stopSound();
+      });
+    </script>
   </body>
 </html>
